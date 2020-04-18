@@ -31,10 +31,10 @@ public class User implements Serializable {
 	@Column(name = "iban", nullable = false)
 	private String IBAN;
 	
-	@OneToMany(mappedBy = "payer_id")
+	@OneToMany(mappedBy = "payer")
 	private List<Transaction> transactionsAsPayer;
 
-	@OneToMany(mappedBy = "payee_id")
+	@OneToMany(mappedBy = "payee")
 	private List<Transaction> transactionsAsPayee;
 	
 	public Long getId() {

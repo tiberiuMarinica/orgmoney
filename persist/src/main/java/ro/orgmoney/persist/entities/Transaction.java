@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import ro.orgmoney.model.dtos.TransactionDto.Type;
+import ro.orgmoney.persist.entities.converters.TransactionTypeConverter;
 
 @Entity
 @Table(name = "transactions")
@@ -25,6 +27,8 @@ public class Transaction implements Serializable {
 	@Column(name = "id", nullable = false)
 	private UUID id;
 	
+	@Column(name="type")
+	@Convert(converter = TransactionTypeConverter.class)
 	private Type type;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

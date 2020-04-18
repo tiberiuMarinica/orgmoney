@@ -12,7 +12,36 @@ public class TransactionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum Type {
-		IBAN_TO_IBAN, IBAN_TO_WALLET, WALLET_TO_IBAN, WALLET_TO_WALLET
+		IBAN_TO_IBAN("Iban to Iban", 0), 
+		IBAN_TO_WALLET("Iban to Wallet", 1), 
+		WALLET_TO_IBAN("Wallet to Iban", 2), 
+		WALLET_TO_WALLET("Wallet to Wallet", 3);
+		
+		private String name;
+		private Integer code;
+		
+		private Type(String name, Integer code) {
+			this.name = name;
+			this.code = code;
+		}
+		
+		public String getName() {
+			return this.name;
+		}
+		
+		public Integer getCode() {
+			return this.code;
+		}
+		
+		public static Type fromCode(Integer code) {
+	        for (Type t : Type.values()) {
+	            if (t.getCode().equals(code)) {
+	                return t;
+	            }
+	        }
+	        
+	        throw new IllegalArgumentException("No Type with code=" + code + " found!");
+	    }
 	}
 
 	private String correlationId;

@@ -37,9 +37,9 @@ class CommandLineAppStartupRunner implements CommandLineRunner {
     @Override
     public void run(String...args) throws Exception {
     	
-    	UserDto payer = new UserDto("12345", "Ion Ion", "NL10RABO5361018961");
-    	UserDto payee = new UserDto("12345", "Ion Ion", "JO34SXSN8989419175328827734816");
-    	TransactionDto t = new TransactionDto(UUID.randomUUID().toString(), payer, payee, TransactionDto.Type.IBAN_TO_IBAN, 24.3, "description");
+    	UserDto payer = new UserDto("1960302030023", "Tiberiu Marinica", "NL10RABO5361018961");
+    	UserDto payee = new UserDto("12345123", "Ion Ion2", "efectiv orice");
+    	TransactionDto t = new TransactionDto(UUID.randomUUID().toString(), payer, payee, TransactionDto.Type.IBAN_TO_WALLET, 243.3, "description");
     	
     	rabbitTemplate.convertAndSend(newTransactionsExchangeName, newTransactionsRoutingKey, t);
     }

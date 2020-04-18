@@ -1,5 +1,7 @@
 package ro.orgmoney.persist.services.impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class PersistServiceImpl implements PersistService {
 	private TransactionRepository transactionRepository;
 	
 	@Override
+	@Transactional
 	public void create(TransactionDto transactionDto) {
 		
 		System.out.println("Persisting transaction " + transactionDto);
@@ -41,21 +44,25 @@ public class PersistServiceImpl implements PersistService {
 		//User payer = userRepository.getOne(transactionDto.getPayer().getId());
 		//transaction.setPayer(payer);
 		
-		//dar deoarece nu sunt, ii voi crea cu fiecare tranzactie
+		//dar deoarece nu sunt, ii voi crea cu fiecare tranzactie (daca nu sunt deja in DB)
 		
-		User payer = new User();
-		payer.setName(transactionDto.getPayer().getName());
-		payer.setCNP(transactionDto.getPayer().getCNP());
-		payer.setIBAN(transactionDto.getPayer().getIBAN());
+		User payer = userRepository.findUserByCNP(transactionDto.getPayer().getCNP());
+		if(payer == null) {
+			payer = new User();
+			payer.setName(transactionDto.getPayer().getName());
+			payer.setCNP(transactionDto.getPayer().getCNP());
+			payer.setIBAN(transactionDto.getPayer().getIBAN());
+			userRepository.save(payer);
+		}
 		
-		userRepository.save(payer);
-		
-		User payee = new User();
-		payee.setName(transactionDto.getPayee().getName());
-		payee.setCNP(transactionDto.getPayee().getCNP());
-		payee.setIBAN(transactionDto.getPayee().getIBAN());
-		
-		userRepository.save(payee);
+		User payee = userRepository.findUserByCNP(transactionDto.getPayee().getCNP());
+		if(payee == null) {
+			payee = new User();
+			payee.setName(transactionDto.getPayee().getName());
+			payee.setCNP(transactionDto.getPayee().getCNP());
+			payee.setIBAN(transactionDto.getPayee().getIBAN());
+			userRepository.save(payee);
+		}
 		
 		transaction.setPayer(payer);
 		transaction.setPayee(payee);
