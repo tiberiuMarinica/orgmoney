@@ -47,14 +47,18 @@ public class ReportServiceImpl implements ReportService {
 		    	Map<Type, List<Transaction>> typeWithTransactionsMap = arrangeTransactionsByType(u.getTransactionsAsPayer());
 		    	out.write("Nume: " + u.getName());
 		    	out.newLine();
+		    	out.newLine();
 		    	
 		    	out.write("CNP: " + u.getCNP());
+		    	out.newLine();
 		    	out.newLine();
 		    	
 		    	out.write("IBAN: " + u.getIBAN());
 		    	out.newLine();
+		    	out.newLine();
 		    	
 		    	out.write("Tranzactii: ");
+		    	out.newLine();
 		    	out.newLine();
 		    	
 		    	int i = 1;

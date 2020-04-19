@@ -25,8 +25,6 @@ public class PersistServiceImpl implements PersistService {
 	@Transactional
 	public TransactionDto create(TransactionDto transactionDto) {
 		
-		System.out.println("Persisting transaction " + transactionDto);
-		
 		Transaction transaction = convertFromDto(transactionDto);
 		
 		transaction = transactionRepository.save(transaction);
@@ -49,6 +47,8 @@ public class PersistServiceImpl implements PersistService {
 		//transaction.setPayer(payer);
 		
 		//dar deoarece nu sunt, ii voi crea cu fiecare tranzactie (daca nu sunt deja in DB)
+		
+		//Atentie - daca tranzactia e wallet to iban, payer-ul va fi creat cu un iban invalid!!!
 		
 		User payer = userRepository.findUserByCNP(transactionDto.getPayer().getCNP());
 		if(payer == null) {
