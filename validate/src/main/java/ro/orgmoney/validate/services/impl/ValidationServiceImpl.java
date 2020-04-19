@@ -40,6 +40,10 @@ public class ValidationServiceImpl implements ValidationService {
 	}
 
 	private void validateNotNull(TransactionDto transaction) throws InvalidTransactionException {
+		if(transaction == null) {
+			throw new InvalidTransactionException("Transaction is null!");
+		}
+		
 		if(transaction.getType() == null) {
 			throw new InvalidTransactionException("Type is null for transaction " + transaction.getCorrelationId());
 		}
