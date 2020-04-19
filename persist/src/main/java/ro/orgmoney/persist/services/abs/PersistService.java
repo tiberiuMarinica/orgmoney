@@ -4,6 +4,6 @@ import ro.orgmoney.model.dtos.TransactionDto;
 
 public interface PersistService {
 
-	public abstract void create(TransactionDto transactionDto);
+	public abstract TransactionDto create(TransactionDto transactionDto);
 	
 }

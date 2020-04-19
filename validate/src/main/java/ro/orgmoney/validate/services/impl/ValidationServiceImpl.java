@@ -7,6 +7,7 @@ import ro.orgmoney.model.dtos.TransactionDto;
 import ro.orgmoney.model.dtos.UserDto;
 import ro.orgmoney.validate.exceptions.InvalidTransactionException;
 import ro.orgmoney.validate.services.abs.ValidationService;
+import ro.orgmoney.validate.utils.CnpValidator;
 
 @Service
 public class ValidationServiceImpl implements ValidationService {
@@ -14,6 +15,31 @@ public class ValidationServiceImpl implements ValidationService {
 	@Override
 	public void validate(TransactionDto transaction) throws InvalidTransactionException {
 		
+		validateNotNull(transaction);
+		
+		UserDto payer = transaction.getPayer();
+		UserDto payee = transaction.getPayee();
+		
+		if(payer.getName() == null || payer.getName().trim().isEmpty()) {
+			throw new InvalidTransactionException("Payer name is not valid vor transaction " + transaction.getCorrelationId());
+		}
+		
+		if(!CnpValidator.isCnpValid(payer.getCNP())) {
+			throw new InvalidTransactionException("Payer CNP is not valid vor transaction " + transaction.getCorrelationId());
+		}
+		
+		if(payee.getName() == null || payee.getName().trim().isEmpty()) {
+			throw new InvalidTransactionException("Payee name is not valid vor transaction " + transaction.getCorrelationId());
+		}
+		
+		if(!CnpValidator.isCnpValid(payee.getCNP())) {
+			throw new InvalidTransactionException("Payee CNP is not valid vor transaction " + transaction.getCorrelationId());
+		}
+		
+		validateIbans(transaction);
+	}
+
+	private void validateNotNull(TransactionDto transaction) throws InvalidTransactionException {
 		if(transaction.getType() == null) {
 			throw new InvalidTransactionException("Type is null for transaction " + transaction.getCorrelationId());
 		}
@@ -33,21 +59,6 @@ public class ValidationServiceImpl implements ValidationService {
 		if(transaction.getDescription() == null || transaction.getDescription().trim().isEmpty()) {
 			throw new InvalidTransactionException("Description is null or empty for transaction " + transaction.getCorrelationId());
 		}
-		
-		UserDto payer = transaction.getPayer();
-		UserDto payee = transaction.getPayee();
-		
-		Boolean isPayerValid = isUserValid(payer);
-		if(!isPayerValid) {
-			throw new InvalidTransactionException("Payer is not valid for transaction " + transaction.getCorrelationId());
-		}
-		
-		Boolean isPayeeValid = isUserValid(payee);
-		if(!isPayeeValid) {
-			throw new InvalidTransactionException("Payee is not valid for transaction " + transaction.getCorrelationId());
-		}
-		
-		validateIbans(transaction);
 	}
 
 	private void validateIbans(TransactionDto transaction) throws InvalidTransactionException {
@@ -97,21 +108,6 @@ public class ValidationServiceImpl implements ValidationService {
 			default:
 				throw new InvalidTransactionException("Transaction type " + transaction.getType() + " is not supported!");
 		}
-	}
-	
-	private Boolean isUserValid(UserDto user) {
-		Boolean cnpValid = isCnpValid(user.getCNP());
-		
-		Boolean nameValid = false;
-		if(user.getName() != null && !user.getName().trim().isEmpty()) {
-			nameValid = true;
-		}
-		
-		return cnpValid && nameValid;
-	}
-	
-	private Boolean isCnpValid(String cnp) {
-		return true;
 	}
 	
 }

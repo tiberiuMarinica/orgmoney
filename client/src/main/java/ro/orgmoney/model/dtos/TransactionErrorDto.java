@@ -1,8 +1,6 @@
-package ro.orgmoney.validate.dtos;
+package ro.orgmoney.model.dtos;
 
 import java.io.Serializable;
-
-import ro.orgmoney.model.dtos.TransactionDto;
 
 public class TransactionErrorDto implements Serializable {
 

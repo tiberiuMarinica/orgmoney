@@ -21,22 +21,22 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Long id;
-	
+
 	@Column(name = "name", nullable = false)
 	private String name;
-	
+
 	@Column(name = "cnp", unique = true, nullable = false)
 	private String CNP;
-	
+
 	@Column(name = "iban", nullable = false)
 	private String IBAN;
-	
+
 	@OneToMany(mappedBy = "payer")
 	private List<Transaction> transactionsAsPayer;
 
 	@OneToMany(mappedBy = "payee")
 	private List<Transaction> transactionsAsPayee;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -108,6 +108,21 @@ public class User implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("User [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", CNP=");
+		builder.append(CNP);
+		builder.append(", IBAN=");
+		builder.append(IBAN);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

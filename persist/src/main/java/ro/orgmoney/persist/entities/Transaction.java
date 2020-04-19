@@ -21,27 +21,27 @@ import ro.orgmoney.persist.entities.converters.TransactionTypeConverter;
 public class Transaction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false)
 	private UUID id;
-	
-	@Column(name="type")
+
+	@Column(name = "type")
 	@Convert(converter = TransactionTypeConverter.class)
 	private Type type;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "payer_id")
 	private User payer;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "payee_id")
 	private User payee;
-	
+
 	@Column(name = "sum")
 	private Double sum;
-	
+
 	@Column(name = "description")
 	private String description;
 
@@ -117,4 +117,20 @@ public class Transaction implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Transaction [id=");
+		builder.append(id);
+		builder.append(", type=");
+		builder.append(type);
+		builder.append(", sum=");
+		builder.append(sum);
+		builder.append(", description=");
+		builder.append(description);
+		builder.append("]");
+		return builder.toString();
+	}
+
 }

@@ -2,20 +2,21 @@ package ro.orgmoney.validate.mq.listeners;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import ro.orgmoney.model.dtos.TransactionDto;
-import ro.orgmoney.validate.dtos.TransactionErrorDto;
+import ro.orgmoney.model.dtos.TransactionErrorDto;
 import ro.orgmoney.validate.exceptions.InvalidTransactionException;
 import ro.orgmoney.validate.services.abs.ValidationService;
 
 @Component
-public class ValidateTransactionMessageListener {
+public class ValidateTransactionListener {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(ValidateTransactionMessageListener.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(ValidateTransactionListener.class);
 	
 	@Autowired
 	private ValidationService validationService;
@@ -41,6 +42,7 @@ public class ValidateTransactionMessageListener {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 	
+	@RabbitListener(queues = "${rabbitmq.new.transactions.queue}")
 	public void validateTransaction(TransactionDto transaction) {
 		try {
 			

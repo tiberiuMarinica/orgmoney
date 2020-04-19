@@ -3,7 +3,8 @@ package ro.orgmoney.model.dtos;
 import java.io.Serializable;
 
 /**
- * Should be in a separate .jar in a repository, but for the sake of simplicity, i just copied them between projects
+ * Should be in a separate .jar in a repository, but for the sake of simplicity,
+ * i just copied them between projects
  *
  */
 
@@ -12,9 +13,39 @@ public class TransactionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public enum Type {
-		IBAN_TO_IBAN, IBAN_TO_WALLET, WALLET_TO_IBAN, WALLET_TO_WALLET
+		IBAN_TO_IBAN("Iban to Iban", 0), 
+		IBAN_TO_WALLET("Iban to Wallet", 1), 
+		WALLET_TO_IBAN("Wallet to Iban", 2),
+		WALLET_TO_WALLET("Wallet to Wallet", 3);
+
+		private String name;
+		private Integer code;
+
+		private Type(String name, Integer code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return this.name;
+		}
+
+		public Integer getCode() {
+			return this.code;
+		}
+
+		public static Type fromCode(Integer code) {
+			for (Type t : Type.values()) {
+				if (t.getCode().equals(code)) {
+					return t;
+				}
+			}
+
+			throw new IllegalArgumentException("No Type with code=" + code + " found!");
+		}
 	}
 
+	private String id;
 	private String correlationId;
 	private UserDto payer;
 	private UserDto payee;
@@ -22,15 +53,24 @@ public class TransactionDto implements Serializable {
 	private Double sum;
 	private String description;
 
-	
-	public TransactionDto(String correlationId, UserDto payer, UserDto payee, Type type, Double sum, String description) {
+	public TransactionDto(String id, String correlationId, UserDto payer, UserDto payee, Type type, Double sum,
+			String description) {
 		super();
+		this.id = id;
 		this.correlationId = correlationId;
 		this.payer = payer;
 		this.payee = payee;
 		this.type = type;
 		this.sum = sum;
 		this.description = description;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getCorrelationId() {
@@ -87,6 +127,7 @@ public class TransactionDto implements Serializable {
 		int result = 1;
 		result = prime * result + ((correlationId == null) ? 0 : correlationId.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((payee == null) ? 0 : payee.hashCode());
 		result = prime * result + ((payer == null) ? 0 : payer.hashCode());
 		result = prime * result + ((sum == null) ? 0 : sum.hashCode());
@@ -113,6 +154,11 @@ public class TransactionDto implements Serializable {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (payee == null) {
 			if (other.payee != null)
 				return false;
@@ -136,7 +182,9 @@ public class TransactionDto implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Transaction [correlationId=");
+		builder.append("TransactionDto [id=");
+		builder.append(id);
+		builder.append(", correlationId=");
 		builder.append(correlationId);
 		builder.append(", payer=");
 		builder.append(payer);
@@ -151,7 +199,5 @@ public class TransactionDto implements Serializable {
 		builder.append("]");
 		return builder.toString();
 	}
-
-	
 
 }

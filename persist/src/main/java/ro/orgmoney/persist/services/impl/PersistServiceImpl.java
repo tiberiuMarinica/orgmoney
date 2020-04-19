@@ -23,13 +23,17 @@ public class PersistServiceImpl implements PersistService {
 	
 	@Override
 	@Transactional
-	public void create(TransactionDto transactionDto) {
+	public TransactionDto create(TransactionDto transactionDto) {
 		
 		System.out.println("Persisting transaction " + transactionDto);
 		
 		Transaction transaction = convertFromDto(transactionDto);
 		
-		transactionRepository.save(transaction);
+		transaction = transactionRepository.save(transaction);
+		
+		transactionDto.setId(transaction.getId().toString());
+		
+		return transactionDto;
 	}
 	
 	private Transaction convertFromDto(TransactionDto transactionDto) {
