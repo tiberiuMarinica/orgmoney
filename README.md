@@ -1,4 +1,4 @@
-### The solution I provided is basesd on async communication based on messaging through RabbitMQ
+### The solution I provided is basesd on async communication based on messaging through RabbitMQ (hosted externally on Heroku)
 
 ![system schema](schema.png)
 
