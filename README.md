@@ -22,8 +22,13 @@
 	"type" : "WALLET_TO_IBAN",
 	"sum" : 996.83,
 	"description" : "descriere"
-	
 }
 ```
+
+#### To get transactions report, call client application report endpoint, and see output in console:
+```
+http://localhost:8080/reportRequest/allTransactions
+```
+
 
 ![system schema](schema.png)
