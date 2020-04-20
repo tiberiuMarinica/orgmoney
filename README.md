@@ -22,7 +22,7 @@ POST: http://localhost:8080/transaction
 	
 	"payee" : {
 		"name" : "Ion Ionescu",
-		"CNP" : "2940825147591",
+		"CNP" : "1930702462895",
 		"IBAN" : "RO21RZBR9234222628351991"
 	},
 	
