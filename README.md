@@ -32,7 +32,7 @@ POST: http://localhost:8080/transaction
 }
 ```
 
-#### To get transactions report, call client application report endpoint (which sends a report request message to RabbitMQ), and see output in console:
+#### To get transactions report, call client application report endpoint (which sends a report request message to RabbitMQ), and see output in client console:
 ```
 GET: http://localhost:8080/reportRequest/allTransactions
 ```
