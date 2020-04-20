@@ -6,7 +6,7 @@
 ```
 #### Client application has a REST endpoint where you can POST transactions.
 ```
-POST: localhost:8080/transaction
+POST: http://localhost:8080/transaction
 ```
 
 ##### Example transaction json:
