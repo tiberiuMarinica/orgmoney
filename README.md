@@ -26,4 +26,4 @@
 }
 ```
 
-!(schema.png)
+![system schema](schema.png)
