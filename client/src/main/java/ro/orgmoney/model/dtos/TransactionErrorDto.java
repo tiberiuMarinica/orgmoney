@@ -64,7 +64,13 @@ public class TransactionErrorDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "InvalidTransactionDto [errorMessage=" + errorMessage + ", transaction=" + transaction + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("TransactionErrorDto [errorMessage=");
+		builder.append(errorMessage);
+		builder.append(", transaction=");
+		builder.append(transaction);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

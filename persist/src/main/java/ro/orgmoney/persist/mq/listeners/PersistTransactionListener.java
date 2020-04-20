@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import ro.orgmoney.model.dtos.TransactionDto;
-import ro.orgmoney.persist.dtos.TransactionErrorDto;
+import ro.orgmoney.model.dtos.TransactionErrorDto;
 import ro.orgmoney.persist.services.abs.PersistService;
 
 @Component

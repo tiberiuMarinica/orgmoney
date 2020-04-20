@@ -1,8 +1,6 @@
-package ro.orgmoney.persist.dtos;
+package ro.orgmoney.model.dtos;
 
 import java.io.Serializable;
-
-import ro.orgmoney.model.dtos.TransactionDto;
 
 public class TransactionErrorDto implements Serializable {
 
@@ -66,7 +64,13 @@ public class TransactionErrorDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "InvalidTransactionDto [errorMessage=" + errorMessage + ", transaction=" + transaction + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("TransactionErrorDto [errorMessage=");
+		builder.append(errorMessage);
+		builder.append(", transaction=");
+		builder.append(transaction);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
