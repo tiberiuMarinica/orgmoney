@@ -34,5 +34,5 @@ POST: http://localhost:8080/transaction
 
 #### To get transactions report, call client application report endpoint, and see output in console:
 ```
-http://localhost:8080/reportRequest/allTransactions
+GET: http://localhost:8080/reportRequest/allTransactions
 ```
