@@ -1,5 +1,7 @@
 ### The solution I provided is basesd on async communication based on messaging through RabbitMQ
 
+![system schema](schema.png)
+
 #### Run as each application as
 ``` 
 ./mvnw spring-boot:run
@@ -34,6 +36,3 @@ POST: http://localhost:8080/transaction
 ```
 http://localhost:8080/reportRequest/allTransactions
 ```
-
-
-![system schema](schema.png)
