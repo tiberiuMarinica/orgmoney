@@ -26,4 +26,4 @@
 }
 ```
 
-(schema.png)
+!(schema.png)
