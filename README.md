@@ -26,4 +26,4 @@
 }
 ```
 
-![Image of Yaktocat](schema.png)
+(schema.png)
