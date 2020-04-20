@@ -57,7 +57,7 @@ public class ReportServiceImpl implements ReportService {
 		    	out.newLine();
 		    	out.newLine();
 		    	
-		    	out.write("Tranzactii: ");
+		    	out.write("Tranzacții: ");
 		    	out.newLine();
 		    	out.newLine();
 		    	
