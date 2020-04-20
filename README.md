@@ -4,7 +4,12 @@
 ``` 
 ./mvnw spring-boot:run
 ```
-#### Client application has a REST endpoint where you can POST transactions. Example transaction json:
+#### Client application has a REST endpoint where you can POST transactions.
+```
+POST: localhost:8080/transaction
+```
+
+##### Example transaction json:
 ``` 
 {
 	"payer" : {
