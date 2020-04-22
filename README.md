@@ -4,7 +4,7 @@
 
 #### Run as each application as
 ``` 
-./mvnw spring-boot:run
+mvnw spring-boot:run
 ```
 #### Client application has a REST endpoint where you can POST transactions.
 ```
